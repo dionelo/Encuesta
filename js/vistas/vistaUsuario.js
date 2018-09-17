@@ -25,10 +25,11 @@ VistaUsuario.prototype = {
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos(); 
-      //location.reload();
+      //location.reload(); 
     });   
 
     this.reconstruirGrafico();
+    validacionDeFormulario();
   },
 
   //reconstruccion de los graficos de torta
@@ -87,7 +88,12 @@ VistaUsuario.prototype = {
       var id = $(this).attr('id');
       var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
       $('input[name=' + id + ']').prop('checked',false);
-      contexto.controlador.agregarVotos(nombrePregunta, respuestaSeleccionada, nombreUsuario);
+      if(respuestaSeleccionada !== undefined) {
+        contexto.controlador.agregarVotos(nombrePregunta, respuestaSeleccionada, nombreUsuario);
+      } else {
+        alert('Reponde todas las preguntas amigo');
+        $('#preguntas') = null;
+      }
     });
   },
 

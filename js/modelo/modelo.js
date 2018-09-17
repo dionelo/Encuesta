@@ -68,6 +68,7 @@ Modelo.prototype = {
 
   borrarTodasLasPreguntas: function() {
     this.preguntas = [];
+    this.registroUsuarios = [];
     this.guardar();
     this.todasLasPreguntasEliminadas.notificar();
   },

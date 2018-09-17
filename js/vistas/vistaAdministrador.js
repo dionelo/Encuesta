@@ -70,15 +70,23 @@ VistaAdministrador.prototype = {
     e.botonAgregarPregunta.click(function() {
       var pregunta = e.pregunta.val();
       var respuestas = [];
-      $('[name="option[]"]').each(function() {
-        //completar
-        if($(this).val() !== "") {
-          var respuesta = $(this).val();
-          respuestas.push({"textoRespuesta": respuesta, "cantidad": 0});
+      if(pregunta !== "") { 
+        $('[name="option[]"]').each(function() {
+          //completar
+          if($(this).val() !== "") {
+            var respuesta = $(this).val();
+            respuestas.push({"textoRespuesta": respuesta, "cantidad": 0});
+          }
+        }, this);
+        if(respuestas.length > 0) {
+          contexto.controlador.agregarPregunta(pregunta, respuestas);
+          contexto.limpiarFormulario();
+        } else {
+          alert('No pusiste ninguna respuesta guach');
         }
-      }, this);
-      contexto.controlador.agregarPregunta(pregunta, respuestas);
-      contexto.limpiarFormulario();
+      } else {
+        alert('No hiciste ninguna pregunta amiguero');
+      }
     });
 
     //asociar el resto de los botones a eventos

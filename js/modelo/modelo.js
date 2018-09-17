@@ -90,17 +90,6 @@ Modelo.prototype = {
    this.votosAgregados.notificar();
   },
 
-  mostrarRegistro: function(pantalla) {
-    var registro = this.registroUsuarios;
-    registro.forEach(function(usuario) {
-      var li = document.createElement('li');
-      var contenido = document.createTextNode(usuario.usuario + ' ' + usuario.pregunta + ' ' + usuario.respuesta);
-      pantalla.appendChild(li);
-      pantalla.appendChild(contenido);
-    });
-    this.usuariosRegistrados.notificar();
-  }, 
-
   //se guardan las preguntas
   guardar: function(){
     var preguntas = JSON.stringify(this.preguntas);

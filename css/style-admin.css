@@ -126,6 +126,16 @@ ul.list-group li small {
 	max-width: 42%;
 }
 
+ul.registro-votantes li {
+	margin-bottom: 15px;
+	background-color: #3A4043;
+	color: #fff;
+	border-radius: 4px;
+	padding: 30px 30px 30px 60px;
+	display: flex;
+	align-items: center;
+}
+
 /*////////// RESPONSIVE ////////////*/
 
 @media only screen and (max-width: 1024px) {

@@ -33,7 +33,7 @@ VistaAdministrador.prototype = {
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
     this.reconstruirLista();
     this.configuracionDeBotones();
-    //this.mostrarRegistro();
+    this.mostrarRegistro();
     validacionDeFormulario();
 
   },
@@ -108,8 +108,15 @@ VistaAdministrador.prototype = {
 
   mostrarRegistro: function() {
     var contexto = this;
-    var registroPantalla = contexto.elementos.registroDeVotantes;
-    contexto.controlador.mostrarRegistro(registroPantalla);
+    var pantalla = contexto.elementos.registroDeVotantes;
+    //contexto.controlador.mostrarRegistro(registroPantalla);
+    var registro = contexto.modelo.registroUsuarios;
+    registro.forEach(function(usuario) {
+      pantalla.append($('<li>', {
+        text: usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
+      }));
+    });
+
   },
 
   limpiarFormulario: function(){

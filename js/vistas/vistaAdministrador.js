@@ -78,11 +78,11 @@ VistaAdministrador.prototype = {
             respuestas.push({"textoRespuesta": respuesta, "cantidad": 0});
           }
         }, this);
-        if(respuestas.length > 0) {
+        if(respuestas.length > 1) {
           contexto.controlador.agregarPregunta(pregunta, respuestas);
           contexto.limpiarFormulario();
         } else {
-          alert('No pusiste ninguna respuesta guach');
+          alert('Tenes que poner al menos dos respuestas para la pregunta guach');
         }
       } else {
         alert('No hiciste ninguna pregunta amiguero');
@@ -121,7 +121,7 @@ VistaAdministrador.prototype = {
     var registro = contexto.modelo.registroUsuarios;
     registro.forEach(function(usuario) {
       pantalla.append($('<li>', {
-        text: usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
+        text: usuario.fecha + ' ' + usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
       }));
     });
 

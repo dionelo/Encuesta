@@ -73,7 +73,7 @@ Modelo.prototype = {
     this.todasLasPreguntasEliminadas.notificar();
   },
 
-  agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario) {
+  agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario, fecha) {
    this.preguntas.forEach(function(pregunta) {
       pregunta.cantidadPorRespuesta.forEach(function(respuesta) { 
         if(pregunta.textoPregunta === nombrePregunta && respuesta.textoRespuesta === respuestaSeleccionada) {
@@ -84,7 +84,8 @@ Modelo.prototype = {
    var usuario = {
      usuario: usuario,
      pregunta: nombrePregunta,
-     respuesta: respuestaSeleccionada
+     respuesta: respuestaSeleccionada,
+     fecha: fecha
    };
    this.registroUsuarios.push(usuario);
    this.guardar();

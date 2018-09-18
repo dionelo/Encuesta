@@ -23,8 +23,8 @@ Controlador.prototype = {
     this.modelo.borrarTodasLasPreguntas();
   },
 
-  agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario) {
-    this.modelo.agregarVotos(nombrePregunta, respuestaSeleccionada, usuario);
+  agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario, fecha) {
+    this.modelo.agregarVotos(nombrePregunta, respuestaSeleccionada, usuario, fecha);
   },
 
   // mostrarRegistro: function(registroPantalla) {

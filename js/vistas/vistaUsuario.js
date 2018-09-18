@@ -25,11 +25,10 @@ VistaUsuario.prototype = {
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos(); 
-      //location.reload(); 
+      location.reload(); 
     });   
 
     this.reconstruirGrafico();
-    validacionDeFormulario();
   },
 
   //reconstruccion de los graficos de torta
@@ -87,11 +86,18 @@ VistaUsuario.prototype = {
       var nombrePregunta = $(this).attr('value');
       var id = $(this).attr('id');
       var respuestaSeleccionada = $('input[name=' + id + ']:checked').val();
+      var fecha_hora = new Date();
+      hora = fecha_hora.getHours().toString();
+      minutos = fecha_hora.getMinutes().toString();
+      dia = fecha_hora.getDate().toString();
+      mes = (fecha_hora.getMonth() + 1) .toString();
+      anio = fecha_hora.getFullYear().toString();
+      var fecha = 'A las ' + hora + ':' + minutos + ' del ' + dia + '/' + mes + '/' + anio;
       $('input[name=' + id + ']').prop('checked',false);
-      if(respuestaSeleccionada !== undefined) {
-        contexto.controlador.agregarVotos(nombrePregunta, respuestaSeleccionada, nombreUsuario);
+      if(respuestaSeleccionada !== undefined && nombreUsuario !== "") {
+        contexto.controlador.agregarVotos(nombrePregunta, respuestaSeleccionada, nombreUsuario, fecha);
       } else {
-        alert('Reponde todas las preguntas amigo');
+        alert('Pone tu nombre y reponde todas las preguntas, amiguito');
         $('#preguntas') = null;
       }
     });

@@ -68,6 +68,13 @@ button .fa-plus {
 	background-size: 14px 17px;
 }
 
+.botones button#limpiarRegistro:before {
+	width: 14px;
+	height: 17px;
+	background: url(../img/icon_btn_limpiar_registro.png) no-repeat;
+	background-size: 14px 17px;
+}
+
 .botones button:hover {
 	background-color: #DDD;
 }

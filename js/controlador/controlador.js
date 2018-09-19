@@ -23,6 +23,10 @@ Controlador.prototype = {
     this.modelo.borrarTodasLasPreguntas();
   },
 
+  limpiarRegistro: function() {
+    this.modelo.limpiarRegistro();
+  },
+
   agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario, fecha) {
     this.modelo.agregarVotos(nombrePregunta, respuestaSeleccionada, usuario, fecha);
   },

@@ -24,6 +24,10 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
     contexto.reconstruirLista();
   });
 
+  this.modelo.registroLimpio.suscribir(function() {
+    contexto.borrarRegistro();
+  });
+
 };
 
 
@@ -112,6 +116,10 @@ VistaAdministrador.prototype = {
       contexto.controlador.borrarTodasLasPreguntas();
     });
 
+    e.limpiarRegistro.click(function() {
+      contexto.controlador.limpiarRegistro();
+    });
+
   },
 
   mostrarRegistro: function() {
@@ -121,10 +129,14 @@ VistaAdministrador.prototype = {
     var registro = contexto.modelo.registroUsuarios;
     registro.forEach(function(usuario) {
       pantalla.append($('<li>', {
-        text: usuario.fecha + ' ' + usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
+        text: usuario.fecha + ', ' + usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
       }));
     });
 
+  },
+
+  borrarRegistro: function() {
+    $('#registroVotantes').remove();
   },
 
   limpiarFormulario: function(){

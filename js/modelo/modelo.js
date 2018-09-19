@@ -20,8 +20,8 @@ var Modelo = function() {
   this.preguntaEditada = new Evento(this);
   this.preguntaEliminada = new Evento(this);
   this.todasLasPreguntasEliminadas = new Evento(this);
+  this.registroLimpio = new Evento(this);
   this.votosAgregados = new Evento(this);
-  this.usuariosRegistrados = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -52,6 +52,7 @@ Modelo.prototype = {
       }
     }, this);
      this.guardar();
+     this.actualizar();
      this.preguntaEditada.notificar();
   },
 
@@ -68,9 +69,14 @@ Modelo.prototype = {
 
   borrarTodasLasPreguntas: function() {
     this.preguntas = [];
-    this.registroUsuarios = [];
     this.guardar();
     this.todasLasPreguntasEliminadas.notificar();
+  },
+
+  limpiarRegistro: function() {
+    this.registroUsuarios = [];
+    this.guardar();
+    this.registroLimpio.notificar();
   },
 
   agregarVotos: function(nombrePregunta, respuestaSeleccionada, usuario, fecha) {

@@ -4,6 +4,7 @@ var vistaAdmin = new VistaAdministrador(modelo, new Controlador(modelo), {
   'botonEditarPregunta': $('#editarPregunta'),
   'botonBorrarPregunta': $('#borrarPregunta'),
   'borrarTodo': $('#borrarTodo'),
+  'limpiarRegistro': $('#limpiarRegistro'),
   'pregunta': $('#pregunta'),
   'respuesta': $('#respuesta'),
   'formulario': $('localStorageForm'),

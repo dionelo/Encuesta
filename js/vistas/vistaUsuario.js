@@ -25,7 +25,8 @@ VistaUsuario.prototype = {
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos(); 
-      location.reload(); 
+      contexto.reconstruirGrafico();
+      contexto.limpiarFormulario();
     });   
 
     this.reconstruirGrafico();
@@ -134,4 +135,9 @@ VistaUsuario.prototype = {
       }
     }
   },
+
+  limpiarFormulario: function(){
+    $('.line-input').remove();
+  },
+
 };

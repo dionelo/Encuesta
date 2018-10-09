@@ -8,20 +8,29 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
   var contexto = this;
 
   // suscripción de observadores
-  this.modelo.preguntaAgregada.suscribir(function() {
-    contexto.reconstruirLista();
+
+  this.modelo.preguntasEnviadas.suscribir(function(preguntas) {
+    contexto.reconstruirLista(preguntas.preguntas);
   });
 
-  this.modelo.preguntaEditada.suscribir(function() {
-    contexto.reconstruirLista();
+  this.modelo.registroEnviado.suscribir(function(registro) {
+    contexto.mostrarRegistro(registro.registroUsuarios);
   });
 
-  this.modelo.preguntaEliminada.suscribir(function() { 
-    contexto.reconstruirLista(); 
+  this.modelo.preguntaAgregada.suscribir(function(preguntas) {
+    contexto.reconstruirLista(preguntas.preguntas);
   });
 
-  this.modelo.todasLasPreguntasEliminadas.suscribir(function() {
-    contexto.reconstruirLista();
+  this.modelo.preguntaEditada.suscribir(function(preguntas) {
+    contexto.reconstruirLista(preguntas.preguntas);
+  });
+
+  this.modelo.preguntaEliminada.suscribir(function(preguntas) { 
+    contexto.reconstruirLista(preguntas.preguntas); 
+  });
+
+  this.modelo.todasLasPreguntasEliminadas.suscribir(function(preguntas) {
+    contexto.reconstruirLista(preguntas.preguntas);
   });
 
   this.modelo.registroLimpio.suscribir(function() {
@@ -34,10 +43,10 @@ var VistaAdministrador = function(modelo, controlador, elementos) {
 VistaAdministrador.prototype = {
   //lista
   inicializar: function() {
+    this.controlador.obtenerPreguntas();
+    this.controlador.obtenerRegistro();
     //llamar a los metodos para reconstruir la lista, configurar botones y validar formularios
-    this.reconstruirLista();
     this.configuracionDeBotones();
-    this.mostrarRegistro();
     validacionDeFormulario();
 
   },
@@ -57,11 +66,11 @@ VistaAdministrador.prototype = {
     return nuevoItem;
   },
 
-  reconstruirLista: function() {
+  reconstruirLista: function(preguntasEnviadas) {
     var lista = this.elementos.lista;
     lista.html('');
-    var preguntas = this.modelo.preguntas;
-    for (var i=0;i<preguntas.length;++i){
+    var preguntas = preguntasEnviadas;
+    for (var i=0 ; i < preguntas.length; i++){
       lista.append(this.construirElementoPregunta(preguntas[i]));
     }
   },
@@ -122,17 +131,15 @@ VistaAdministrador.prototype = {
 
   },
 
-  mostrarRegistro: function() {
+  mostrarRegistro: function(registroEnviado) {
     var contexto = this;
     var pantalla = contexto.elementos.registroDeVotantes;
-    //contexto.controlador.mostrarRegistro(registroPantalla);
-    var registro = contexto.modelo.registroUsuarios;
+    var registro = registroEnviado;
     registro.forEach(function(usuario) {
       pantalla.append($('<li>', {
         text: usuario.fecha + ', ' + usuario.usuario + ' respondio: ' + '"' + usuario.respuesta + '"' + ' a la pregunta ' + '"' + usuario.pregunta + '"' 
       }));
     });
-
   },
 
   borrarRegistro: function() {

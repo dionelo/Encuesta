@@ -22,6 +22,8 @@ var Modelo = function() {
   this.todasLasPreguntasEliminadas = new Evento(this);
   this.registroLimpio = new Evento(this);
   this.votosAgregados = new Evento(this);
+  this.preguntasEnviadas = new Evento(this);
+  this.registroEnviado = new Evento(this);
 };
 
 Modelo.prototype = {
@@ -102,7 +104,6 @@ Modelo.prototype = {
   guardar: function(){
     var preguntas = JSON.stringify(this.preguntas);
     localStorage.setItem('preguntasEncuesta', preguntas);
-
     var registro = JSON.stringify(this.registroUsuarios);
     localStorage.setItem('registro', registro);
   },
@@ -110,10 +111,19 @@ Modelo.prototype = {
   actualizar: function(){
     var preguntas = localStorage.getItem('preguntasEncuesta');
     this.preguntas = JSON.parse(preguntas);
-
     var registro = localStorage.getItem('registro');
     this.registroUsuarios = JSON.parse(registro);
 
+  },
+
+  enviarPreguntas: function() {
+    var preguntasAEnviar = this.preguntas;
+    this.preguntasEnviadas.notificar(preguntasAEnviar);
+  },
+
+  enviarRegistro: function() {
+    var registroEnviar = this.registroUsuarios;
+    this.registroEnviado.notificar(registroEnviar);
   }
 
 };

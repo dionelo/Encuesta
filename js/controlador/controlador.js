@@ -31,8 +31,12 @@ Controlador.prototype = {
     this.modelo.agregarVotos(nombrePregunta, respuestaSeleccionada, usuario, fecha);
   },
 
-  // mostrarRegistro: function(registroPantalla) {
-  //   this.modelo.mostrarRegistro(registroPantalla);
-  // },
+  obtenerPreguntas: function() {
+    this.modelo.enviarPreguntas();
+  },
+
+  obtenerRegistro: function() {
+    this.modelo.enviarRegistro();
+  }
 
 };

@@ -6,11 +6,14 @@ var VistaUsuario = function(modelo, controlador, elementos) {
   this.controlador = controlador;
   this.elementos = elementos;
   var contexto = this;
+  var preguntas;
 
   //suscripcion a eventos del modelo
 
-  this.modelo.preguntaAgregada.suscribir(function() {
-    contexto.reconstruirLista();
+  this.modelo.preguntasEnviadas.suscribir(function(preguntas) {
+    contexto.reconstruirLista(preguntas.preguntas);
+    contexto.reconstruirGrafico(preguntas.preguntas);
+    contexto.preguntas = preguntas.preguntas;
   });
 
 };
@@ -19,24 +22,25 @@ VistaUsuario.prototype = {
   //muestra la lista por pantalla y agrega el manejo del boton agregar
   inicializar: function() {
     
-    this.reconstruirLista();
+    this.controlador.obtenerPreguntas();
+    //this.reconstruirLista();
     var elementos = this.elementos;
     var contexto = this;
     
     elementos.botonAgregar.click(function() {
       contexto.agregarVotos(); 
-      contexto.reconstruirGrafico();
+      contexto.reconstruirGrafico(preguntas);
       contexto.limpiarFormulario();
     });   
 
-    this.reconstruirGrafico();
   },
 
   //reconstruccion de los graficos de torta
-  reconstruirGrafico: function(){
+  reconstruirGrafico: function(preguntasEnviadas){
     var contexto = this;
     //obtiene las preguntas del local storage
-    var preguntas = this.modelo.preguntas;
+    //var preguntas = this.modelo.preguntas;
+    preguntas = preguntasEnviadas;
     preguntas.forEach(function(clave){
       var listaParaGrafico = [[clave.textoPregunta, 'Cantidad']];
       var respuestas = clave.cantidadPorRespuesta;
@@ -47,15 +51,15 @@ VistaUsuario.prototype = {
     });
   },
 
-  reconstruirLista: function() {
+  reconstruirLista: function(preguntasEnviadas) {
     var listaPreguntas = this.elementos.listaPreguntas;
     listaPreguntas.html('');
     var contexto = this;
-    var preguntas = this.modelo.preguntas;
+    preguntas = preguntasEnviadas; 
     preguntas.forEach(function(clave){
       //completar
       //agregar a listaPreguntas un elemento div con valor "clave.textoPregunta", texto "clave.textoPregunta", id "clave.id"
-       listaPreguntas.append($('<div>', {
+      listaPreguntas.append($('<div>', {
         value: clave.textoPregunta,
         text: clave.textoPregunta,
         id: clave.id,
@@ -66,7 +70,7 @@ VistaUsuario.prototype = {
   },
 
   //muestra respuestas
-  mostrarRespuestas:function(listaPreguntas,respuestas, clave){
+  mostrarRespuestas:function(listaPreguntas, respuestas, clave){
     respuestas.forEach (function(elemento) {
       listaPreguntas.append($('<input>', {
         type: 'radio',
